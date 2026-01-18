@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tulipanes Nocturnos</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    background:#0254a1;
+    cursor:pointer;
+}
+
+/* ===== CARRUSEL ===== */
+.slider{
+    position:fixed;
+    inset:0;
+    display:flex;
+    width:500%;
+    opacity:0;
+    transition:opacity 2s ease;
+    z-index:-2;
+}
+
+.slide{
+    
+    width:100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+@keyframes slide{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-95%);}
+}
+
+/* ===== CUADROS DE TEXTO ===== */
+.text-box{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:65%;
+    max-width:650px;
+    padding:18px 22px;
+    background:rgba(255, 255, 255, 0.9);
+    border-radius:14px;
+    font-size:18px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+    z-index:10;
+    display:none;
+}
+
+.text-box.active{display:block;}
+
+.arrow{
+    position:absolute;
+    bottom:10px;
+    font-size:26px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.arrow-next{right:18px;}
+.arrow-prev{left:18px;}
+
+/* ===== JARDÍN ===== */
+.garden{
+    position:absolute;
+    inset:0;
+    z-index:1;
+}
+
+/* ===== TULIPÁN ===== */
+.tulip{
+    position:absolute;
+    width:60px;
+    height:160px;
+    transition:opacity 2s ease,transform 2s ease;
+}
+
+.stem{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    width:5px;
+    height:110px;
+    background:#2e8b57;
+    transform:translateX(-50%);
+}
+
+.leaf{
+    position:absolute;
+    width:30px;
+    height:60px;
+    background:#3cb371;
+    border-radius:50%;
+}
+
+.leaf.left{left:-18px;top:85px;transform:rotate(-30deg);}
+.leaf.right{right:-18px;top:85px;transform:rotate(30deg);}
+
+.petal{
+    position:absolute;
+    width:40px;
+    height:60px;
+    background:linear-gradient(#fff,#e4e4e4);
+    border-radius:50% 50% 0 0;
+    top:0;
+}
+
+.petal.left{left:0;}
+.petal.mid{left:10px;}
+.petal.right{right:0;}
+
+.fade-out{
+    opacity:0;
+    transform:scale(.6) translateY(80px);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== CARRUSEL 20 IMÁGENES ===== -->
+<div class="slider" id="slider">
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-13\ at\ 00.35.17.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-13\ at\ 00.35.20.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-14\ at\ 09.40.21.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-15\ at\ 19.06.16.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-15\ at\ 19.11.07.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-15\ at\ 19.11.08.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.34.37.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.34.38.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.34.38\ \(1\).jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.34.38\ \(2\).jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.34.38\ \(3\).jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.35.46.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.35.46\ \(1\).jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.35.47.jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.35.47\ \(1\).jpeg')"></div>
+    <div class="slide" style="background-image:url('img/WhatsApp\ Image\ 2026-01-18\ at\ 11.35.47\ \(2\).jpeg')"></div>
+</div>
+
+<!-- ===== TEXTOS ===== -->
+<div class="text-box active">
+    Todo estaba lleno de tulipanes blancos…
+    <div class="arrow arrow-next" onclick="nextText()">→</div>
+</div>
+
+<div class="text-box">
+    Hi my love,<br>
+
+I want you to know how beautiful you are—not just in appearance, but in everything you are, in the way you light up my life with every gesture, every word, every look. From the moment you spoke to me, I felt something I had never felt for anyone before. I’ve never liked anyone the way I like you, and from that moment, I knew you were different, that you weren’t like anyone I had ever met.
+
+You make me feel protected in a way I didn’t know I needed. When I’m with you, I feel I can trust someone completely, that I can be myself without fear. Your presence gives me both calm and strength at the same time, and that’s something I’ve never experienced before. You cared for me, you listened to me, you made me feel important, and all of that captivated me completely.
+
+I know it wasn’t easy to win your heart, and maybe that’s why I appreciate every moment, every smile, every instant with you even more. Because anything worth having is worth the effort—and you are worth everything to me. It doesn’t matter if we are far apart or close, or the schedules of work or school, or any obstacles life puts in our way; none of that will ever stand in the way of our love. I want to be with you always, by your side, building a future together, waking up next to you every day, and someday marrying you..
+    <div class="arrow arrow-prev" onclick="prevText()">←</div>
+    <div class="arrow arrow-next" onclick="nextText()">→</div>
+</div>
+
+<div class="text-box">
+    I will love your insecurities, I will care for your inner child, and every part of you that you sometimes hesitate to show. I will love you like never before, and I want to show you every day what true love really is. Because what we feel is incomparable, and everything else, what others might say or think, simply doesn’t matter. The only thing that matters is you and me, and the path we choose to walk together.
+
+I dream of living with you, sharing every joy, every challenge, every moment of our lives. I want our love to be a refuge, a home, a place where we always feel safe and complete. Because when I’m with you, everything makes sense, everything feels lighter, more real, more ours.
+
+You are my happiness, my peace, my sanctuary. And I promise that I will always care for you, respect you, and love you as you deserve. Because there is no one else who can make me feel this way—protected, loved, and whole the way you do. I’ve never felt this for anyone, and now I know I never want to feel it for anyone else but you.
+
+Always yours,
+Edgar :3.
+    <div class="arrow arrow-prev" onclick="prevText()">←</div>
+</div>
+
+<!-- ===== TULIPANES ===== -->
+<div class="garden" id="garden"></div>
+
+<script>
+const garden=document.getElementById("garden");
+const slider=document.getElementById("slider");
+const textBoxes=document.querySelectorAll(".text-box");
+
+let currentText=0;
+let activated=false;
+
+/* CREAR TULIPANES */
+for(let i=0;i<220;i++){
+    const t=document.createElement("div");
+    t.className="tulip";
+    t.style.left=Math.random()*100+"vw";
+    t.style.top=Math.random()*100+"vh";
+    t.style.transform=`scale(${0.6+Math.random()*0.7})`;
+    t.innerHTML=`
+        <div class="petal left"></div>
+        <div class="petal mid"></div>
+        <div class="petal right"></div>
+        <div class="stem"></div>
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>`;
+    garden.appendChild(t);
+}
+
+/* NAVEGACIÓN TEXTO */
+function nextText(){
+    textBoxes[currentText].classList.remove("active");
+    currentText++;
+    if(textBoxes[currentText]){
+        textBoxes[currentText].classList.add("active");
+    }
+}
+
+function prevText(){
+    textBoxes[currentText].classList.remove("active");
+    currentText--;
+    if(textBoxes[currentText]){
+        textBoxes[currentText].classList.add("active");
+    }
+}
+
+/* ACTIVAR ESCENA */
+document.body.addEventListener("click",()=>{
+    if(activated) return;
+    activated=true;
+
+    document.querySelectorAll(".tulip")
+        .forEach(t=>t.classList.add("fade-out"));
+
+    slider.style.opacity=1;
+    slider.style.animation="slide 80s linear infinite";
+},{once:true});
+</script>
+
+</body>
+</html>
